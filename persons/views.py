@@ -13,7 +13,7 @@ def main(request):
 
 
 class SkillList(ListView):
-    queryset = Skills.objects.all()
+    queryset = Skills.objects.prefetch_related('persons_set__position')
     template_name = "skills.html"
     context_object_name = "skills"
 
@@ -29,16 +29,14 @@ def persons(request):
             if response.status_code == 200:
                 data = response.json()
                 age = data.get("age")
-            
+
                 Persons.objects.filter(first_name=selected_name).update(age=age)
                 persons = Persons.objects.filter(age__isnull=False).distinct().order_by('age')
-                print(persons)
 
                 return render(request, template_name="persons.html", context={'form': form, 'persons': persons})
-            
+
             messages.error(request, "Brak odpowiedzi serwera, spróbuj ponownie później")
             return redirect('persons:persons')
 
-            # return render(request, 'name_result.html', {'selected_name': selected_name})
     form = NameForm()
     return render(request, template_name="persons.html", context={'form': form})
