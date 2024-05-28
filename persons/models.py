@@ -4,9 +4,15 @@ from django.db import models
 class Skills(models.Model):
     name = models.CharField(verbose_name="Imię", max_length=64, unique=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(verbose_name="Stanowisko", max_length=64, unique=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Persons(models.Model):
@@ -17,3 +23,6 @@ class Persons(models.Model):
         Position, verbose_name="Stanowisko", null=True, on_delete=models.SET_NULL
     )
     age = models.PositiveIntegerField(verbose_name="Wiek", blank=True, null=True)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
