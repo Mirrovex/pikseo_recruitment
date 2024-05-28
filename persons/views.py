@@ -1,11 +1,10 @@
 import requests
-
-from django.shortcuts import render, redirect
-from django.views.generic import ListView
 from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.views.generic import ListView
 
-from persons.models import Skills, Persons
 from persons.forms import NameForm
+from persons.models import Persons, Skills
 
 
 def main(request):

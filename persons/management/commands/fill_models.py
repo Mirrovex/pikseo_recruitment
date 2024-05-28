@@ -1,8 +1,10 @@
+import random
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from faker import Faker
+
 from persons.models import Persons, Position, Skills
-import random
 
 
 fake = Faker("pl_PL")
@@ -55,4 +57,3 @@ class Command(BaseCommand):
                 person.skills.add(skill)
 
             person.save()
-
