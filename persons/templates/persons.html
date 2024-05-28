@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="min-height: 300px; flex-direction: column; margin: 0 8em; width: -webkit-fill-available;"
+    class="d-flex align-items-center justify-content-center" style="flex-direction: column;">
+        
+        <form method="POST" action="{% url 'persons:persons' %}" style="width: -webkit-fill-available; margin: 2em 8em;">
+            {% csrf_token %}
+
+            <div style="display: flex; flex-direction: row;">
+
+                {% for field in form %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">
+                            {{ field.help_text|safe }}
+                        </small>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                
+                <button type="submit" class="btn btn-success" style="margin-left: 10px;">Szukaj</button>
+            </div>
+        </form>
+        
+        {% if persons %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Imię</th>
+                    <th scope="col">Nazwisko</th>
+                    <th scope="col">Wiek</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for person in persons %}
+                        <tr>
+                            <td>{{ person.first_name }}</td>
+                            <td>{{ person.last_name }}</td>
+                            <td>{{ person.age }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
