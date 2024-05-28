@@ -6,7 +6,6 @@ from faker import Faker
 
 from persons.models import Persons, Position, Skills
 
-
 fake = Faker("pl_PL")
 
 _skills = [

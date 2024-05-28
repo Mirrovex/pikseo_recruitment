@@ -34,8 +34,8 @@ def persons(request):
 
                 return render(request, template_name="persons.html", context={'form': form, 'persons': persons})
 
-            messages.error(request, "Brak odpowiedzi serwera, spróbuj ponownie później")
-            return redirect('persons:persons')
+        messages.error(request, "Brak odpowiedzi serwera, spróbuj ponownie później")
+        return redirect('persons:persons')
 
     form = NameForm()
     return render(request, template_name="persons.html", context={'form': form})
